@@ -47,7 +47,7 @@ original verdict (fail-safe: it can never crash the host process).
 ## Install
 
 ```bash
-git clone https://github.com/<owner>/hermes-reasoning-alias-fix.git
+git clone https://github.com/prajadiputra/hermes-reasoning-alias-fix.git
 cp -r hermes-reasoning-alias-fix ~/.hermes/plugins/reasoning-alias-fix
 hermes plugins doctor reasoning-alias-fix     # expect: registration passed
 hermes plugins enable reasoning-alias-fix
