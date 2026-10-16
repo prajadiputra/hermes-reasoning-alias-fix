@@ -1,0 +1,12 @@
+name: reasoning-alias-fix
+version: "1.0.0"
+description: "Learn 'duplicate field `reasoning_content`' rejections from an upstream whose schema aliases `reasoning` onto `reasoning_content`: drop the aliased `reasoning` carrier on the retry while KEEPING `reasoning_content`, so a strict serde backend stops answering HTTP 400 on every replayed turn. Survives hermes update."
+author: "prajadiputra"
+license: MIT
+kind: backend
+platforms:
+  - linux
+  - macos
+  - windows
+provides_hooks: []
+requires_env: []
