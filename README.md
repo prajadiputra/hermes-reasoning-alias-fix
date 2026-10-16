@@ -46,21 +46,39 @@ original verdict (fail-safe: it can never crash the host process).
 
 ## Install
 
-```bash
-git clone https://github.com/prajadiputra/hermes-reasoning-alias-fix.git
-cp -r hermes-reasoning-alias-fix ~/.hermes/plugins/reasoning-alias-fix
-hermes plugins doctor reasoning-alias-fix     # expect: registration passed
-hermes plugins enable reasoning-alias-fix
-```
-
-Then restart the process that serves the patched route — **enabling does not patch an
-already-running process**, and the gateway and the dashboard are different processes:
+One command — the CLI accepts a `owner/repo` shorthand or a full Git URL and records provenance,
+so updates are tracked from then on:
 
 ```bash
-systemctl --user restart hermes-gateway        # and/or hermes-dashboard, whichever serves your route
+hermes plugins install prajadiputra/hermes-reasoning-alias-fix --enable
 ```
 
-A new session also picks it up (`hermes plugins enable` reports "takes effect on next session").
+Then make a running process pick it up — **enabling does not patch an already-running process**:
+
+```bash
+hermes gateway restart      # and/or restart the dashboard, whichever serves your route
+```
+
+Starting a new session also picks it up (`hermes plugins enable` reports "takes effect on next
+session"). Prefer `hermes gateway restart` over `systemctl --user restart hermes-gateway`: the
+systemd path can kill the gateway before its children finish.
+
+### Updating
+
+```bash
+hermes plugins check-updates                  # read-only
+hermes plugins update reasoning-alias-fix     # pull latest
+hermes gateway restart
+```
+
+### Already cloned it by hand?
+
+If you copied the repo into `~/.hermes/plugins/` yourself, adopt it so it becomes a tracked git
+install (reads the `origin` URL, writes the provenance row, enables `update`):
+
+```bash
+hermes plugins adopt reasoning-alias-fix
+```
 
 ## Verify
 
